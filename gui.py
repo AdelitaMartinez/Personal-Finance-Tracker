@@ -29,4 +29,20 @@ class FinanceTracker:
     self.amount_entry = tk.Entry(self.root)
     self.amount_entry.pack()
 
-    
+    # Income and expense widget
+    self.type_label = tk.Label(self.root, text="Type (income/expense)")
+    self.type_label.pack()
+    self.type_entry = tk.Entry(self.root)
+    self.type_entry.pack()
+
+    # Date
+    self.date_label = tk.Label(self.root, text="Date (YYYY-MM-DD)")
+    self.date_label.pack()
+    self.date_entry = tk.Entry(self.root)
+    self.date_entry.pack()
+
+    # Description
+    self.desc_label = tk.Label(self.root, text="Description")
+    self.desc_label.pack()
+    self.desc_entry = tk.Entry(self.root)
+    self.desc_entry.pack()
