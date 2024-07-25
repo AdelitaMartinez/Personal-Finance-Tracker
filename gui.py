@@ -14,4 +14,19 @@ class FinanceTracker:
     self.root = root
     self.root.title("Personal Finance Tracker")
 
-  
+    # Create and place GUI complenets
+    self.create_widgets()
+
+    # Initialize SQLite database
+    self.init_db()
+
+  def create_widgets(self):
+    # Create and place widgets
+
+    # Amount widget
+    self.amount_label = tk.Label(self.root, text="Amount")
+    self.amount_label.pack()
+    self.amount_entry = tk.Entry(self.root)
+    self.amount_entry.pack()
+
+    
