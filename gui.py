@@ -9,3 +9,9 @@ from tkinter import messagebox
 import sqlite3
 from datetime import datetime
 
+class FinanceTracker:
+  def __init__(self, root):
+    self.root = root
+    self.root.title("Personal Finance Tracker")
+
+  
