@@ -46,3 +46,16 @@ class FinanceTracker:
     self.desc_label.pack()
     self.desc_entry = tk.Entry(self.root)
     self.desc_entry.pack()
+
+    # Add buttons
+    self.add_button = tk.Button(self.root, text="Add Transaction", command=self.add_transaction)
+    self.add_button.pack()
+
+    self.delete_button = tk.Button(self.root, text="Delete Transaction", command=self.delete_transaction)
+    self.delete_button.pack()
+
+    self.transactions_list = tk.Listbox(self.root)
+    self.transactions_list.pack()
+
+    self.summary_label = tk.Label(self.root, text="Summary")
+    self.summary_label.pack()
