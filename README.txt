@@ -12,3 +12,12 @@
 ## Running the Project
 1. Open a terminal.
 2. Navigate to the project directory:
+
+## Usage
+- Add transactions using the provided entry fields.
+- View all transactions in the list.
+- Check total income, expenses, and balance in the summary section.
+
+## Additional Notes
+- Ensure you have Python and Tkinter installed on your virtual server.
+- Save your work regularly.
