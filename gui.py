@@ -10,57 +10,65 @@ import sqlite3
 from datetime import datetime
 
 class FinanceTracker:
-  def __init__(self, root):
-    self.root = root
-    self.root.title("Personal Finance Tracker")
+    def __init__(self, root):
+        self.root = root
+        self.root.title("Personal Finance Tracker")
 
-    # Create and place GUI complenets
-    self.create_widgets()
+        # Set the initial size of the window
+        self.root.geometry("400x500")
 
-    # Initialize SQLite database
-    self.init_db()
+        # Create and place GUI components
+        self.create_widgets()
 
-  def create_widgets(self):
-    # Create and place widgets
+        # Initialize SQLite database
+        self.init_db()
 
-    # Amount widget
-    self.amount_label = tk.Label(self.root, text="Amount")
-    self.amount_label.pack()
-    self.amount_entry = tk.Entry(self.root)
-    self.amount_entry.pack()
+    def create_widgets(self):
+        # Create a frame for the input fields and buttons
+        input_frame = tk.Frame(self.root)
+        input_frame.pack(pady=10)
 
-    # Income and expense widget
-    self.type_label = tk.Label(self.root, text="Type (income/expense)")
-    self.type_label.pack()
-    self.type_entry = tk.Entry(self.root)
-    self.type_entry.pack()
+        # Amount input
+        self.amount_label = tk.Label(input_frame, text="Amount")
+        self.amount_label.grid(row=0, column=0, padx=5, pady=5, sticky='e')
+        self.amount_entry = tk.Entry(input_frame)
+        self.amount_entry.grid(row=0, column=1, padx=5, pady=5)
 
-    # Date
-    self.date_label = tk.Label(self.root, text="Date (YYYY-MM-DD)")
-    self.date_label.pack()
-    self.date_entry = tk.Entry(self.root)
-    self.date_entry.pack()
+        # Type input
+        self.type_label = tk.Label(input_frame, text="Type (income/expense)")
+        self.type_label.grid(row=1, column=0, padx=5, pady=5, sticky='e')
+        self.type_entry = tk.Entry(input_frame)
+        self.type_entry.grid(row=1, column=1, padx=5, pady=5)
 
-    # Description
-    self.desc_label = tk.Label(self.root, text="Description")
-    self.desc_label.pack()
-    self.desc_entry = tk.Entry(self.root)
-    self.desc_entry.pack()
+        # Date input
+        self.date_label = tk.Label(input_frame, text="Date (YYYY-MM-DD)")
+        self.date_label.grid(row=2, column=0, padx=5, pady=5, sticky='e')
+        self.date_entry = tk.Entry(input_frame)
+        self.date_entry.grid(row=2, column=1, padx=5, pady=5)
 
-    # Add buttons
-    self.add_button = tk.Button(self.root, text="Add Transaction", command=self.add_transaction)
-    self.add_button.pack()
+        # Description input
+        self.desc_label = tk.Label(input_frame, text="Description")
+        self.desc_label.grid(row=3, column=0, padx=5, pady=5, sticky='e')
+        self.desc_entry = tk.Entry(input_frame)
+        self.desc_entry.grid(row=3, column=1, padx=5, pady=5)
 
-    self.delete_button = tk.Button(self.root, text="Delete Transaction", command=self.delete_transaction)
-    self.delete_button.pack()
+        # Add transaction button
+        self.add_button = tk.Button(input_frame, text="Add Transaction", command=self.add_transaction)
+        self.add_button.grid(row=4, columnspan=2, pady=10)
 
-    self.transactions_list = tk.Listbox(self.root)
-    self.transactions_list.pack()
+        # Delete transaction button
+        self.delete_button = tk.Button(input_frame, text="Delete Transaction", command=self.delete_transaction)
+        self.delete_button.grid(row=5, columnspan=2, pady=5)
 
-    self.summary_label = tk.Label(self.root, text="Summary")
-    self.summary_label.pack()
+        # Transactions list
+        self.transactions_list = tk.Listbox(self.root, height=10, width=50)
+        self.transactions_list.pack(pady=10)
 
-  def init_db(self):
+        # Summary label
+        self.summary_label = tk.Label(self.root, text="Summary")
+        self.summary_label.pack(pady=10)
+
+    def init_db(self):
         # Initialize SQLite database
         self.conn = sqlite3.connect('finance.db')
         self.cursor = self.conn.cursor()
@@ -68,7 +76,7 @@ class FinanceTracker:
                              (id INTEGER PRIMARY KEY, amount REAL, type TEXT, date TEXT, description TEXT)''')
         self.conn.commit()
 
-  def add_transaction(self):
+    def add_transaction(self):
         # Function to add a transaction
         amount = self.amount_entry.get()
         trans_type = self.type_entry.get()
@@ -80,8 +88,9 @@ class FinanceTracker:
         self.conn.commit()
 
         self.load_transactions()
+        self.update_summary()
 
-  def delete_transaction(self):
+    def delete_transaction(self):
         # Function to delete a transaction
         selected = self.transactions_list.curselection()
         if selected:
@@ -89,17 +98,18 @@ class FinanceTracker:
             self.cursor.execute("DELETE FROM transactions WHERE id=?", (trans_id,))
             self.conn.commit()
             self.load_transactions()
+            self.update_summary()
         else:
             messagebox.showwarning("Warning", "Please select a transaction to delete")
 
-  def load_transactions(self):
+    def load_transactions(self):
         # Function to load transactions from the database
         self.transactions_list.delete(0, tk.END)
         self.cursor.execute("SELECT * FROM transactions")
         for row in self.cursor.fetchall():
             self.transactions_list.insert(tk.END, f"{row[0]} {row[1]} {row[2]} {row[3]} {row[4]}")
 
-  def update_summary(self):
+    def update_summary(self):
         # Function to update total income, expenses, and balance
         self.cursor.execute("SELECT SUM(amount) FROM transactions WHERE type='income'")
         total_income = self.cursor.fetchone()[0] or 0
@@ -111,10 +121,10 @@ class FinanceTracker:
 
         self.summary_label.config(text=f"Total Income: {total_income} | Total Expenses: {total_expenses} | Balance: {balance}")
 
-  def save_to_db(self):
+    def save_to_db(self):
         # Function to save transactions to the database
         pass
 
-  def load_from_db(self):
+    def load_from_db(self):
         # Function to load transactions from the database
         pass
