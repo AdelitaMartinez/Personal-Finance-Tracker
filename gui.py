@@ -59,3 +59,42 @@ class FinanceTracker:
 
     self.summary_label = tk.Label(self.root, text="Summary")
     self.summary_label.pack()
+
+  def init_db(self):
+        # Initialize SQLite database
+        self.conn = sqlite3.connect('finance.db')
+        self.cursor = self.conn.cursor()
+        self.cursor.execute('''CREATE TABLE IF NOT EXISTS transactions
+                             (id INTEGER PRIMARY KEY, amount REAL, type TEXT, date TEXT, description TEXT)''')
+        self.conn.commit()
+
+  def add_transaction(self):
+        # Function to add a transaction
+        amount = self.amount_entry.get()
+        trans_type = self.type_entry.get()
+        date = self.date_entry.get()
+        description = self.desc_entry.get()
+
+        self.cursor.execute("INSERT INTO transactions (amount, type, date, description) VALUES (?, ?, ?, ?)",
+                            (amount, trans_type, date, description))
+        self.conn.commit()
+
+        self.load_transactions()
+
+  def delete_transaction(self):
+        # Function to delete a transaction
+        selected = self.transactions_list.curselection()
+        if selected:
+            trans_id = self.transactions_list.get(selected).split()[0]
+            self.cursor.execute("DELETE FROM transactions WHERE id=?", (trans_id,))
+            self.conn.commit()
+            self.load_transactions()
+        else:
+            messagebox.showwarning("Warning", "Please select a transaction to delete")
+
+  def load_transactions(self):
+        # Function to load transactions from the database
+        self.transactions_list.delete(0, tk.END)
+        self.cursor.execute("SELECT * FROM transactions")
+        for row in self.cursor.fetchall():
+            self.transactions_list.insert(tk.END, f"{row[0]} {row[1]} {row[2]} {row[3]} {row[4]}")
