@@ -4,6 +4,7 @@
 # Purpose: Personal finance tracker application to track expenses and income
 # Python Version: 3.12.3
 
+
 import tkinter as tk
 from tkinter import messagebox
 import sqlite3
@@ -13,8 +14,6 @@ class FinanceTracker:
     def __init__(self, root):
         self.root = root
         self.root.title("Personal Finance Tracker")
-
-        # Set the initial size of the window
         self.root.geometry("400x500")
 
         # Create and place GUI components
@@ -41,7 +40,7 @@ class FinanceTracker:
         self.type_entry.grid(row=1, column=1, padx=5, pady=5)
 
         # Date input
-        self.date_label = tk.Label(input_frame, text="Date (YYYY-MM-DD)")
+        self.date_label = tk.Label(input_frame, text="Date (MM-DD-YYYY)")
         self.date_label.grid(row=2, column=0, padx=5, pady=5, sticky='e')
         self.date_entry = tk.Entry(input_frame)
         self.date_entry.grid(row=2, column=1, padx=5, pady=5)
@@ -80,8 +79,16 @@ class FinanceTracker:
         # Function to add a transaction
         amount = self.amount_entry.get()
         trans_type = self.type_entry.get()
-        date = self.date_entry.get()
+        date_str = self.date_entry.get()
         description = self.desc_entry.get()
+
+        # Convert the date format from MM-DD-YYYY to YYYY-MM-DD
+        try:
+            date_obj = datetime.strptime(date_str, "%m-%d-%Y")
+            date = date_obj.strftime("%Y-%m-%d")
+        except ValueError:
+            messagebox.showerror("Invalid Date", "Date must be in MM-DD-YYYY format")
+            return
 
         self.cursor.execute("INSERT INTO transactions (amount, type, date, description) VALUES (?, ?, ?, ?)",
                             (amount, trans_type, date, description))
