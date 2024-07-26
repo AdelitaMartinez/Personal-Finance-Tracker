@@ -126,6 +126,11 @@ class FinanceTracker:
 
         balance = total_income - total_expenses
 
+        # Format amounts to 2 decimal places
+        total_income = "{:.2f}".format(total_income)
+        total_expenses = "{:.2f}".format(total_expenses)
+        balance = "{:.2f}".format(balance)
+
         self.summary_label.config(text=f"Total Income: {total_income} | Total Expenses: {total_expenses} | Balance: {balance}")
 
     def save_to_db(self):
