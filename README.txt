@@ -1,23 +1,16 @@
 Personal Finance Tracker
 
  Requirements
-- Python 3.8 or higher
-- Tkinter (bundled with Python)
-- SQLite3 (bundled with Python)
+- Python 3.8 or higher: Ensure you have Python 3.8 or later installed.
+- Tkinter: Bundled with Python, used for the graphical user interface.
+- SQLite3: Bundled with Python, used for the database.
 
  Installation
-1. Clone the repository or download the zip file.
-2. Extract the folder `MartinezFinal1250` to your Netpod virtual server.
+1. Clone or Download: Obtain the project by cloning the repository or downloading the zip file.
+2. **Extract the Folder**: Extract the folder `MartinezFinal1250` to your Netpod virtual server.
 
  Running the Project
-1. Open a terminal.
-2. Navigate to the project directory:
-
- Usage
-- Add transactions using the provided entry fields.
-- View all transactions in the list.
-- Check total income, expenses, and balance in the summary section.
-
- Additional Notes
-- Ensure you have Python and Tkinter installed on your virtual server.
-- Save your work regularly.
+1. Open a Terminal: Access the terminal on your Netpod virtual machine.
+2. Navigate to the Project Directory: Use the `cd` command to move into the project directory:
+   ```bash
+   cd /path/to/MartinezFinal1250
