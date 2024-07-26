@@ -14,3 +14,12 @@ def init_db():
                       (id INTEGER PRIMARY KEY, amount REAL, type TEXT, date TEXT, description TEXT)''')
     conn.commit()
     conn.close()
+
+    def add_transaction_to_db(transaction):
+    # Function to add a transaction to the database
+     conn = sqlite3.connect('finance.db')
+    cursor = conn.cursor()
+    cursor.execute("INSERT INTO transactions (amount, type, date, description) VALUES (?, ?, ?, ?)",
+                   (transaction['amount'], transaction['type'], transaction['date'], transaction['description']))
+    conn.commit()
+    conn.close()
