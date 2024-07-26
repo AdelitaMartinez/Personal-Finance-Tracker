@@ -98,3 +98,23 @@ class FinanceTracker:
         self.cursor.execute("SELECT * FROM transactions")
         for row in self.cursor.fetchall():
             self.transactions_list.insert(tk.END, f"{row[0]} {row[1]} {row[2]} {row[3]} {row[4]}")
+
+  def update_summary(self):
+        # Function to update total income, expenses, and balance
+        self.cursor.execute("SELECT SUM(amount) FROM transactions WHERE type='income'")
+        total_income = self.cursor.fetchone()[0] or 0
+
+        self.cursor.execute("SELECT SUM(amount) FROM transactions WHERE type='expense'")
+        total_expenses = self.cursor.fetchone()[0] or 0
+
+        balance = total_income - total_expenses
+
+        self.summary_label.config(text=f"Total Income: {total_income} | Total Expenses: {total_expenses} | Balance: {balance}")
+
+  def save_to_db(self):
+        # Function to save transactions to the database
+        pass
+
+  def load_from_db(self):
+        # Function to load transactions from the database
+        pass
