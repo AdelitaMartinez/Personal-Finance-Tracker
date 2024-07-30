@@ -11,6 +11,4 @@ Personal Finance Tracker
 
  Running the Project
 1. Open a Terminal: Access the terminal on your Netpod virtual machine.
-2. Navigate to the Project Directory: Use the `cd` command to move into the project directory:
-   ```bash
-   cd /path/to/MartinezFinal1250
+2. Navigate to the Project Directory: Use the `cd` command to move into the project directory
