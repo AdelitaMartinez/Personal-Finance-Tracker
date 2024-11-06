@@ -1,7 +1,7 @@
 Personal Finance Tracker
 ========================
 
-Author: Adelita Martinez  
+Programmer: Adelita Martinez  
 Contact: 94martinez.adelita@gmail.com 
 Python Version: 3.12.3  
 
