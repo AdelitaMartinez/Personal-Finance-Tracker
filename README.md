@@ -51,7 +51,7 @@ The **Personal Finance Tracker** is a simple, intuitive desktop application that
 The database (`finance.db`) is automatically created if it doesn’t already exist, storing transaction data persistently.
 
 ## Credits
-- **Programmer**: [Adelita Martinez] (https://www.linkedin.com/in/adelitamartinez/)
+- **Programmer**: [Adelita Martinez](https://www.linkedin.com/in/adelitamartinez/)
 - **Email**: 94martinez.adelita@gmail.com
 
 ## License
